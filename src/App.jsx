@@ -557,7 +557,7 @@ function Hero() {
             className="rounded-full border border-white/15 bg-white/5 p-3 text-white/70 backdrop-blur-md transition-colors hover:border-white/30 hover:text-white"
             aria-label="LinkedIn"
           >
-            <Linkedin size={16} />
+            <LinkedinIcon size="{16}"/>
           </a>
         </motion.div>
       </motion.div>
