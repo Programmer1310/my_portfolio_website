@@ -909,7 +909,7 @@ function Contact() {
               rel="noreferrer"
               className="flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-6 py-3 text-sm font-medium text-white/80 backdrop-blur-md hover:border-white/30 hover:text-white"
             >
-              <Linkedin size={15} /> LinkedIn
+              <LinkedinIcon size="{15}"/> LinkedIn
             </a>
             <a
               href={PROFILE.github}
