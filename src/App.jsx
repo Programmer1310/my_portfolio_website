@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import resumePdf from "../public/amrutha_aug2026_resume.pdf";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import {
   Mail,
@@ -11,11 +12,11 @@ import {
   X,
   Award,
   MapPin,
+  Globe,
 } from "lucide-react";
 
 /* ------------------------------------------------------------------ */
-/*  THEME (plain values, applied via inline style — not Tailwind      */
-/*  arbitrary-bracket classes, which this preview can't compile)      */
+/*  THEME                                                             */
 /* ------------------------------------------------------------------ */
 
 const BG = "#0D0E12";
@@ -52,7 +53,7 @@ const ACCENT_MAP = {
 };
 
 /* ------------------------------------------------------------------ */
-/*  DATA                                                               */
+/*  DATA                                                              */
 /* ------------------------------------------------------------------ */
 
 const PROFILE = {
@@ -60,11 +61,12 @@ const PROFILE = {
   subhead: "AI Engineer · MS Computer Science @ NYU Tandon",
   pitch:
     "Building intelligent systems at the intersection of deep learning, computer vision, and generative AI.",
-  location: "Brooklyn, New York",
-  resumeUrl: "#",
-  linkedin: "https://linkedin.com/in/",
-  github: "https://github.com/",
-  email: "mailto:amruthashyam13@gmail.com",
+  location: "New York",
+  resumeUrl: resumePdf,
+  //resumeUrl: "${import.meta.env.BASE_URL}amrutha_aug2026_resume.pdf",
+  linkedin: "https://www.linkedin.com/in/amrutha-shyam-2893a6260", // Fixed: Added https://
+  github: "https://github.com/Programmer1310",
+  email: "mailto:as21083@nyu.edu",
 };
 
 const EDUCATION = [
@@ -146,8 +148,10 @@ const EXPERIENCE = [
     period: "Jun 2026 – Aug 2026",
     accent: "indigo",
     points: [
-      "Designed 6 new public API endpoints and refined 2 existing ones.",
-      "Implemented RBAC and CRUD features; authored the internal API playbook.",
+      "Architected 10+ public REST API endpoints in .NET 10/C#, incorporating cursor pagination to boost data access and streamline client integrations.",
+      "Implemented granular enterprise RBAC features and automated database migrations, giving customers full permission control while closing security gaps.",
+      "Authored an API Playbook and user documentation to accelerate onboarding, while adding xUnit regression guards to 1,700+ CI/CD tests to ensure zero-downtime releases.",
+      "Streamlined engineering operations by scripting automated tools to resolve 3,000+ line API schema conflicts and co-authoring production hotfixes in Azure DevOps.",
     ],
   },
   {
@@ -255,7 +259,7 @@ const CERTIFICATIONS = [
 ];
 
 /* ------------------------------------------------------------------ */
-/*  AMBIENT ORB BACKGROUND                                             */
+/*  AMBIENT ORB BACKGROUND                                            */
 /* ------------------------------------------------------------------ */
 
 function AmbientOrbs() {
@@ -287,7 +291,7 @@ function AmbientOrbs() {
 }
 
 /* ------------------------------------------------------------------ */
-/*  SHARED BITS                                                        */
+/*  SHARED BITS                                                       */
 /* ------------------------------------------------------------------ */
 
 function GlassCard({ children, className = "", accent = "indigo" }) {
@@ -296,7 +300,7 @@ function GlassCard({ children, className = "", accent = "indigo" }) {
     <motion.div
       whileHover={{ y: -4, boxShadow: a.shadow }}
       transition={{ type: "spring", stiffness: 280, damping: 22 }}
-      className={`group relative rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-md transition-colors duration-300 ${a.border} ${className}`}
+      className={`group relative flex h-full flex-col justify-between rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-md transition-colors duration-300 ${a.border} ${className}`}
     >
       {children}
     </motion.div>
@@ -365,7 +369,7 @@ function FilterTabs({ options, active, onChange, layoutId }) {
 }
 
 /* ------------------------------------------------------------------ */
-/*  NAV                                                                 */
+/*  NAV                                                               */
 /* ------------------------------------------------------------------ */
 
 const NAV_LINKS = [
@@ -456,7 +460,7 @@ function Nav() {
 }
 
 /* ------------------------------------------------------------------ */
-/*  HERO                                                                */
+/*  HERO                                                              */
 /* ------------------------------------------------------------------ */
 
 function Hero() {
@@ -546,6 +550,8 @@ function Hero() {
           </button>
           <a
             href={PROFILE.resumeUrl}
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-5 py-3 text-sm font-medium text-white/80 backdrop-blur-md transition-colors hover:border-white/30 hover:text-white"
           >
             <Download size={15} /> Resume
@@ -553,11 +559,10 @@ function Hero() {
           <a
             href={PROFILE.linkedin}
             target="_blank"
-            rel="noreferrer"
-            className="rounded-full border border-white/15 bg-white/5 p-3 text-white/70 backdrop-blur-md transition-colors hover:border-white/30 hover:text-white"
-            aria-label="LinkedIn"
+            rel="noopener noreferrer"
+            className="rounded-full border border-white/15 bg-white/5 px-5 py-3 text-sm font-medium text-white/80 backdrop-blur-md transition-colors hover:border-white/30 hover:text-white"
           >
-            <LinkedinIcon size="{16}"/>
+            LinkedIn
           </a>
         </motion.div>
       </motion.div>
@@ -566,7 +571,7 @@ function Hero() {
 }
 
 /* ------------------------------------------------------------------ */
-/*  EDUCATION                                                           */
+/*  EDUCATION                                                         */
 /* ------------------------------------------------------------------ */
 
 function Education() {
@@ -582,12 +587,15 @@ function Education() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.4 }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
+              className="h-full"
             >
               <GlassCard accent={e.accent}>
-                <GraduationCap size={20} className={ACCENT_MAP[e.accent].text} />
-                <h3 className="mt-4 text-base font-semibold text-white">{e.school}</h3>
-                <p className="mt-1 text-sm text-white/50">{e.degree}</p>
-                <p className="mt-4 text-xs uppercase tracking-widest text-white/35">{e.period}</p>
+                <div>
+                  <GraduationCap size={20} className={ACCENT_MAP[e.accent].text} />
+                  <h3 className="mt-4 text-base font-semibold text-white">{e.school}</h3>
+                  <p className="mt-1 text-sm text-white/50">{e.degree}</p>
+                </div>
+                <p className="mt-6 text-xs uppercase tracking-widest text-white/35">{e.period}</p>
               </GlassCard>
             </motion.div>
           ))}
@@ -598,7 +606,7 @@ function Education() {
 }
 
 /* ------------------------------------------------------------------ */
-/*  SKILLS                                                              */
+/*  SKILLS                                                            */
 /* ------------------------------------------------------------------ */
 
 const SKILL_ACCENTS = ["indigo", "teal", "amber", "rose"];
@@ -634,19 +642,22 @@ function Skills() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -12 }}
                   transition={{ duration: 0.3 }}
+                  className="h-full"
                 >
                   <GlassCard accent={accent}>
-                    <h3 className="mb-4 text-sm font-semibold text-white/80">{group}</h3>
-                    <div className="flex flex-wrap gap-2">
-                      {items.map((s) => (
-                        <motion.span
-                          key={s}
-                          whileHover={{ scale: 1.05 }}
-                          className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-white/70 backdrop-blur-md transition-colors hover:border-white/25 hover:text-white"
-                        >
-                          {s}
-                        </motion.span>
-                      ))}
+                    <div>
+                      <h3 className="mb-4 text-sm font-semibold text-white/80">{group}</h3>
+                      <div className="flex flex-wrap gap-2">
+                        {items.map((s) => (
+                          <motion.span
+                            key={s}
+                            whileHover={{ scale: 1.05 }}
+                            className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-white/70 backdrop-blur-md transition-colors hover:border-white/25 hover:text-white"
+                          >
+                            {s}
+                          </motion.span>
+                        ))}
+                      </div>
                     </div>
                   </GlassCard>
                 </motion.div>
@@ -660,7 +671,7 @@ function Skills() {
 }
 
 /* ------------------------------------------------------------------ */
-/*  EXPERIENCE                                                          */
+/*  EXPERIENCE                                                        */
 /* ------------------------------------------------------------------ */
 
 function Experience() {
@@ -683,28 +694,30 @@ function Experience() {
                 style={{ left: -38 }}
               />
               <GlassCard accent={job.accent}>
-                <div className="flex flex-wrap items-start justify-between gap-2">
-                  <div className="flex items-center gap-3">
-                    <span className={`flex h-9 w-9 items-center justify-center rounded-xl bg-white/10 ${ACCENT_MAP[job.accent].text}`}>
-                      <Briefcase size={16} />
-                    </span>
-                    <div>
-                      <h3 className="text-base font-semibold text-white">{job.company}</h3>
-                      <p className="text-sm text-white/50">{job.role}</p>
+                <div>
+                  <div className="flex flex-wrap items-start justify-between gap-2">
+                    <div className="flex items-center gap-3">
+                      <span className={`flex h-9 w-9 items-center justify-center rounded-xl bg-white/10 ${ACCENT_MAP[job.accent].text}`}>
+                        <Briefcase size={16} />
+                      </span>
+                      <div>
+                        <h3 className="text-base font-semibold text-white">{job.company}</h3>
+                        <p className="text-sm text-white/50">{job.role}</p>
+                      </div>
                     </div>
+                    <span className="text-xs uppercase tracking-widest text-white/35">
+                      {job.period}
+                    </span>
                   </div>
-                  <span className="text-xs uppercase tracking-widest text-white/35">
-                    {job.period}
-                  </span>
+                  <ul className="mt-4 space-y-2">
+                    {job.points.map((p) => (
+                      <li key={p} className="flex gap-2 text-sm text-white/55">
+                        <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-white/40" />
+                        {p}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-                <ul className="mt-4 space-y-2">
-                  {job.points.map((p) => (
-                    <li key={p} className="flex gap-2 text-sm text-white/55">
-                      <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-white/40" />
-                      {p}
-                    </li>
-                  ))}
-                </ul>
               </GlassCard>
             </motion.div>
           ))}
@@ -715,22 +728,31 @@ function Experience() {
 }
 
 /* ------------------------------------------------------------------ */
-/*  PROJECTS                                                            */
+/*  PROJECTS                                                          */
 /* ------------------------------------------------------------------ */
 
 function ProjectCard({ project }) {
   const a = ACCENT_MAP[project.accent];
   return (
-    <motion.div layout initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.96 }} transition={{ duration: 0.3 }}>
-      <GlassCard accent={project.accent} className="h-full">
-        <div className="flex items-start justify-between gap-3">
-          <h3 className="text-base font-semibold text-white">{project.title}</h3>
-          <span className={`whitespace-nowrap rounded-full border px-2.5 py-1 text-xs font-medium uppercase tracking-wider ${a.badge}`}>
-            {project.category}
-          </span>
+    <motion.div
+      layout
+      initial={{ opacity: 0, scale: 0.96 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.96 }}
+      transition={{ duration: 0.3 }}
+      className="h-full"
+    >
+      <GlassCard accent={project.accent}>
+        <div>
+          <div className="flex items-start justify-between gap-3">
+            <h3 className="text-base font-semibold text-white">{project.title}</h3>
+            <span className={`whitespace-nowrap rounded-full border px-2.5 py-1 text-xs font-medium uppercase tracking-wider ${a.badge}`}>
+              {project.category}
+            </span>
+          </div>
+          <p className="mt-1 text-xs uppercase tracking-widest text-white/30">{project.period}</p>
+          <p className="mt-3 text-sm leading-relaxed text-white/55">{project.description}</p>
         </div>
-        <p className="mt-1 text-xs uppercase tracking-widest text-white/30">{project.period}</p>
-        <p className="mt-3 text-sm leading-relaxed text-white/55">{project.description}</p>
         <div className="mt-5 flex flex-wrap gap-2">
           {project.metrics.map((m) => (
             <span
@@ -780,7 +802,7 @@ function Projects() {
 }
 
 /* ------------------------------------------------------------------ */
-/*  PUBLICATIONS & CERTIFICATIONS                                       */
+/*  PUBLICATIONS & CERTIFICATIONS                                     */
 /* ------------------------------------------------------------------ */
 
 function PublicationsHonors() {
@@ -789,35 +811,43 @@ function PublicationsHonors() {
       <div className="mx-auto max-w-5xl">
         <SectionHeading eyebrow="Research" title="Publications & certifications" />
         <div className="grid gap-5 sm:grid-cols-2">
-          <GlassCard accent="indigo">
-            <h3 className="mb-3 text-sm font-semibold uppercase tracking-widest text-white/50">
-              Conference paper
-            </h3>
-            {PUBLICATIONS.map((pub) => (
-              <div key={pub.title}>
-                <p className="text-sm leading-relaxed text-white">{pub.title}</p>
-                <p className="mt-2 text-xs text-indigo-300">{pub.venue}</p>
+          <div className="h-full">
+            <GlassCard accent="indigo">
+              <div>
+                <h3 className="mb-3 text-sm font-semibold uppercase tracking-widest text-white/50">
+                  Conference paper
+                </h3>
+                {PUBLICATIONS.map((pub) => (
+                  <div key={pub.title}>
+                    <p className="text-sm leading-relaxed text-white">{pub.title}</p>
+                    <p className="mt-2 text-xs text-indigo-300">{pub.venue}</p>
+                  </div>
+                ))}
               </div>
-            ))}
-          </GlassCard>
-          <GlassCard accent="teal">
-            <h3 className="mb-3 text-sm font-semibold uppercase tracking-widest text-white/50">
-              Certifications
-            </h3>
-            <ul className="space-y-4">
-              {CERTIFICATIONS.map((c) => (
-                <li key={c.title} className="flex gap-2 text-sm text-white/70">
-                  <Award size={15} className="mt-0.5 shrink-0 text-teal-300" />
-                  <span>
-                    <span className="text-white">{c.title}</span>
-                    <span className="block text-xs text-white/40">
-                      {c.org} · {c.detail}
-                    </span>
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </GlassCard>
+            </GlassCard>
+          </div>
+          <div className="h-full">
+            <GlassCard accent="teal">
+              <div>
+                <h3 className="mb-3 text-sm font-semibold uppercase tracking-widest text-white/50">
+                  Certifications
+                </h3>
+                <ul className="space-y-4">
+                  {CERTIFICATIONS.map((c) => (
+                    <li key={c.title} className="flex gap-2 text-sm text-white/70">
+                      <Award size={15} className="mt-0.5 shrink-0 text-teal-300" />
+                      <span>
+                        <span className="text-white">{c.title}</span>
+                        <span className="block text-xs text-white/40">
+                          {c.org} · {c.detail}
+                        </span>
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </GlassCard>
+          </div>
         </div>
       </div>
     </section>
@@ -825,7 +855,7 @@ function PublicationsHonors() {
 }
 
 /* ------------------------------------------------------------------ */
-/*  BEYOND CODE                                                         */
+/*  BEYOND CODE                                                       */
 /* ------------------------------------------------------------------ */
 
 function BeyondCode() {
@@ -834,33 +864,41 @@ function BeyondCode() {
       <div className="mx-auto max-w-5xl">
         <SectionHeading eyebrow="Beyond code" title="Creative & cultural leadership" />
         <div className="grid gap-5 sm:grid-cols-2">
-          <GlassCard accent="rose">
-            <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-rose-400/10 text-rose-300">
-              <Sparkles size={20} />
-            </span>
-            <h3 className="mt-4 text-lg font-semibold text-white">
-              Classical dance & performance
-            </h3>
-            <p className="mt-2 text-sm leading-relaxed text-white/55">
-              Secretary of NYU Laya, the university's classical dance club. Completed the
-              Bharatanatyam Arangetram with a Certificate of Merit, and performed "Thadadhagai"
-              at the Chennai Cultural Season and the Madurai Meenakshi Temple. Previously
-              represented VIT in inter-college dance contests and choreographed for Team Lasya,
-              VIT's dance club.
-            </p>
-          </GlassCard>
-          <GlassCard accent="amber">
-            <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-400/10 text-amber-300">
-              <Award size={20} />
-            </span>
-            <h3 className="mt-4 text-lg font-semibold text-white">
-              Technical community leadership
-            </h3>
-            <p className="mt-2 text-sm leading-relaxed text-white/55">
-              Organized IoT club activities and stalls at VIT's annual fest, Vibrance, and
-              took part in related workshops and sessions from 2022 to 2024.
-            </p>
-          </GlassCard>
+          <div className="h-full">
+            <GlassCard accent="rose">
+              <div>
+                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-rose-400/10 text-rose-300">
+                  <Sparkles size={20} />
+                </span>
+                <h3 className="mt-4 text-lg font-semibold text-white">
+                  Classical dance & performance
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-white/55">
+                  Secretary of NYU Laya, the university's classical dance club. Completed the
+                  Bharatanatyam Arangetram with a Certificate of Merit, and performed "Thadadhagai"
+                  at the Chennai Cultural Season and the Madurai Meenakshi Temple. Previously
+                  represented VIT in inter-college dance contests and choreographed for Team Lasya,
+                  VIT's dance club.
+                </p>
+              </div>
+            </GlassCard>
+          </div>
+          <div className="h-full">
+            <GlassCard accent="amber">
+              <div>
+                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-400/10 text-amber-300">
+                  <Award size={20} />
+                </span>
+                <h3 className="mt-4 text-lg font-semibold text-white">
+                  Technical community leadership
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-white/55">
+                  Organized IoT club activities and stalls at VIT's annual fest, Vibrance, and
+                  took part in related workshops and sessions from 2022 to 2024.
+                </p>
+              </div>
+            </GlassCard>
+          </div>
         </div>
       </div>
     </section>
@@ -868,7 +906,7 @@ function BeyondCode() {
 }
 
 /* ------------------------------------------------------------------ */
-/*  CONTACT / FOOTER                                                    */
+/*  CONTACT / FOOTER                                                  */
 /* ------------------------------------------------------------------ */
 
 function Contact() {
@@ -906,18 +944,18 @@ function Contact() {
             <a
               href={PROFILE.linkedin}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-6 py-3 text-sm font-medium text-white/80 backdrop-blur-md hover:border-white/30 hover:text-white"
             >
-              <LinkedinIcon size="{15}"/> LinkedIn
+              LinkedIn
             </a>
             <a
               href={PROFILE.github}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-6 py-3 text-sm font-medium text-white/80 backdrop-blur-md hover:border-white/30 hover:text-white"
             >
-              <Github size={15} /> GitHub
+              <Globe size={15} /> GitHub
             </a>
           </div>
         </motion.div>
@@ -931,7 +969,7 @@ function Contact() {
 }
 
 /* ------------------------------------------------------------------ */
-/*  ROOT                                                                */
+/*  ROOT                                                              */
 /* ------------------------------------------------------------------ */
 
 export default function PortfolioEditorial() {
@@ -952,4 +990,3 @@ export default function PortfolioEditorial() {
     </div>
   );
 }
-
