@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import resumePdf from "../public/amrutha_aug2026_resume.pdf";
+import resumePdf from "../docs/amrutha_aug2026_resume.pdf";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import {
   Mail,
